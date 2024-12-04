@@ -40,21 +40,6 @@ To enhance diversity we implemented six different types of recombination between
 - **Mutations**: After each crossover, to maintain diversity and avoid premature convergence, the offspring genome gets some random mutations. A mutation conists in a random change in the color of a pixel. The amount of mutations is ruled by a **mutation rate** hyperparameter, which exponentially decreases over time: 
 
 $$ \text{mutation rate}(t)=\text{mutation rate}(0)\cdot\exp(-\beta\cdot t)$$
-### **4. Crossover and Mutations**
-To enhance diversity we implemented six different types of recombination between the population individuals and one mutation strategy:
-
-- **Crossover Mechanism:** Two parent individuals are comined to create offspring. The crossover can happen at a random point in the chromosome, swapping parts of the image between two parents.
-  - **Single-Point Crossover:** The parents genome is splitted in half and  the left and right parts are exchanged between two parents:
-    - **Horizontal**: the images are splitted in two horizontal bands and combined
-    - **Vertical**: the images are splitted in two vertical bands and combined
-    - **Diagonal**: the images are splitted in two parts on a random diagonal and combined
-  - **Multi-Point Crossover:** The parents genome is splitted into multiple sections and randomly combined:
-    - **Horizontal**: the images are splitted into horizontal bands, randomly selected, and combined
-    - **Vertical**: the images are splitted into vertical bands, randomly selected, and combined
-  - **Blending crossover**: The parents genome is summed by weighted on a random coefficient $\alpha\in[0,1]\to G=\alpha G_A+(1-\alpha)G_B$. The images are then blended on a random opacity parameter.
-- **Mutations**: After each crossover, to maintain diversity and avoid premature convergence, the offspring genome gets some random mutations. A mutation conists in a random change in the color of a pixel. The amount of mutations is ruled by a **mutation rate** hyperparameter, which exponentially decreases over time: 
-
-$$ \text{mutation rate}(t)=\text{mutation rate}(0)\cdot\exp(-\alpha\cdot t)$$
 
 ### **5. Fitness Function Design and selection**
 The fitness function should evaluate how close each evolved image is to the target image. It should reflect both visual accuracy and the constraints of pixel art style. Pixels represented using the RGB standard are represented as vectors of three integers $(r,g,b)\in[0,255]^3$. This representation is extremely useful for choosing metric based on vector distances, as MSE:
