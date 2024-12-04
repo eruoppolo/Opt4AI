@@ -43,7 +43,9 @@ $$ \text{mutation rate}(t)=\text{mutation rate}(0)\cdot\exp(-\beta\cdot t)$$
 
 ### **5. Fitness Function Design and selection**
 The fitness function should evaluate how close each evolved image is to the target image. It should reflect both visual accuracy and the constraints of pixel art style. Pixels represented using the RGB standard are represented as vectors of three integers $(r,g,b)\in[0,255]^3$. This representation is extremely useful for choosing metric based on vector distances, as MSE:
-$$ \frac1N\sum_{i=1}^n(y_i-\tilde{y}_i)^2$$
+
+$$ \frac{1}{N}\sum_{i=1}^n(y_i-\tilde{y}_i)^2$$
+
 We notice that in this case MSE is bounded in the range $MSE\in[0,65025]$. However we see that colors differerence, in terms of visual perception, can differ from this geometric difference. Indeed we can confront the colors above, they are quite different in terms of color shade but in terms of MSE they are not. If we evaluate the (normalized) MSE we see that the difference is minimal:
 
 - c1 vs c2: MSE (normalized) = 0.05
