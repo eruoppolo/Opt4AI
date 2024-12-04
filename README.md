@@ -19,3 +19,9 @@ def load_image(image_path:str , target_resolution:tuple) -> np.ndarray:
 
 ```
 
+---
+
+### **3. Initial Population Generation**
+To generate an initial **random population** of individuals (images), we opted for a pixel based strategy. An individual is composed of randomly chosen pixel colors on a coloured background. This choice was preferred to a completely noised image since usually images can have a dominant color and this strategy could help in finding it a-priori without waiting it emerging from noise.
+Regarding the **image format:** we decided to work squared images for simplicity. So each individual is a 3D array of size $n\times n$ where each cell holds a color divided in the three RGB channels.
+
