@@ -42,26 +42,20 @@ To enhance diversity, we implemented six different recombination methods for the
     - **Vertical:** The images are split into vertical bands, randomly selected, and combined.  
   - **Blending Crossover:** The parents' genomes are combined using a weighted sum based on a random coefficient $\alpha \in [0, 1]$:  
 
-    $$
-    G = \alpha G_A + (1 - \alpha) G_B
-    $$
+$$G = \alpha G_A + (1 - \alpha) G_B$$
 
     The images are blended using a random opacity parameter.  
 
 - **Mutation:** After each crossover, to maintain diversity and avoid premature convergence, offspring genomes undergo random mutations. A mutation consists of a random change in a pixel's color. The number of mutations is controlled by a **mutation rate** hyperparameter, which exponentially decreases over time:  
 
-    $$
-    \text{mutation rate}(t) = \text{mutation rate}(0) \cdot \exp(-\beta \cdot t)
-    $$
+$$\text{mutation rate}(t) = \text{mutation rate}(0) \cdot \exp(-\beta \cdot t)$$
 
 ---
 
 ### **5. Fitness Function Design and Selection**  
 The fitness function evaluates how close each evolved image is to the target image, considering both visual accuracy and the constraints of the pixel-art style. Pixels represented using the RGB standard are treated as vectors of three integers $$(r, g, b) \in [0, 255]^3$$. This representation allows us to use vector-based metrics, such as MSE (Mean Squared Error):  
 
-$$
-\text{MSE} = \frac{1}{N} \sum_{i=1}^n (y_i - \tilde{y}_i)^2
-$$
+$$\text{MSE} = \frac{1}{N} \sum_{i=1}^n (y_i - \tilde{y}_i)^2$$
 
 MSE is bounded in the range $$[0, 65025]$$. However, color differences in terms of visual perception may not align with these geometric differences. For example:  
 
@@ -71,9 +65,7 @@ MSE is bounded in the range $$[0, 65025]$$. However, color differences in terms 
 
 Since MSE may lead to suboptimal solutions, we also considered the [Delta_E metric](http://zschuessler.github.io/DeltaE/learn/), which evaluates color differences in the CIE-LAB color space. Here, $L$ represents perceptual lightness, while $a$ and $b$ represent red-green and blue-yellow color axes. The metric computes the Euclidean distance in this space:  
 
-$$
-\Delta E_{ab} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}
-$$
+$$\Delta E_{ab} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}$$
 
 This metric is bounded in $[0, 100]$, where values in $[0, 10]$ indicate perceptible differences, and the maximum indicates opposite colors. Delta_E values capture color differences more effectively:  
 
