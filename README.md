@@ -84,3 +84,17 @@ This metric is bounded in $[0, 100]$, where values in $[0, 10]$ indicate barely 
 We studied evolution using both MSE and mean $\Delta E$ to evaluate **pixel matching** and measure differences between the evolved image and the target image at each pixel location.
 
 The **selection mechanism** involved selecting individuals for reproduction based on their fitness scores. Higher fitness increases the likelihood of being selected. We used a **tournament selection** strategy, randomly selecting a subset of individuals and choosing the best in terms of fitness among them.
+
+--- 
+
+### **6. New Generation, Evolution and Termination**
+After reproduction and mutation, the offspring replaces a portion of the population. A hyperparameter, **replacement rate**, determines the number of individuals in the initial population to be replaced. These individuals are selected based on their fitness, ensuring that those with the worst fitness scores are replaced by the same number of offspring from the new population with the best fitness scores. By repeating this process over multiple generations, the population of images evolves and improves through this **elitism** procedure.
+
+To prevent stagnation in local minima, we implemented additional strategies. The algorithm is set to stop after a fixed number of generations, but an **anti-stagnation strategy** is employed if no improvement in the fitness function is observed for a certain period. This strategy temporarily increases the mutation rate, introducing noise to help the algorithm escape from local minima. The mutation rate then decreases again according to the exponential decay rule. This operation is applied a limited number of times. If the fitness function still fails to improve significantly after a set number of generations, the algorithm is **early stopped**. 
+
+This early stopping criterion serves two purposes: it either indicates that the evolved image closely approximates the target image or confirms that the evolution process has failed to produce a satisfactory result. Fortunately, our tests consistently support the first hypothesis.
+
+---
+
+
+
