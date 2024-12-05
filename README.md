@@ -102,7 +102,7 @@ The results of the tests show that, despite the expectation that MSE might not y
 
 The lower efficiency of $\Delta E_{ab}$ is likely due to the conversion from RGB space to CIE-LAB space, which requires the `rgb2lab` function from the `skimage.color` library. While it is possible that $\Delta E_{ab}$ might converge to an optimal solution given a higher number of iterations, its computational cost—approximately three times slower than the MSE-based approach—made further tests impractical within our constraints. A more efficient implementation or an optimized strategy for using this metric could be explored in future work to enable a more thorough comparison.
 
-Nonetheless, the results achieved with MSE are satisfactory. With a sufficient number of iterations, no significant issues with color tonalities are observed, and the evolved images align well with the target images. Below we can see an example of generation for the $128\times128$ case.
+Nonetheless, the results achieved with MSE are satisfactory. With a sufficient number of iterations, no significant issues with color tonalities are observed, and the evolved images align well with the target images. Below we show an example of generation for the $128\times128$ case.
 
 <div style="text-align: center;">
     <img src="evolution_128_mse/output.gif" alt="Alt text">
