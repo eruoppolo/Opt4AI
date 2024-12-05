@@ -26,7 +26,9 @@ def load_image(image_path: str, target_resolution: tuple) -> np.ndarray:
 To generate an initial **random population** of individuals (images), we opted for a pixel-based strategy. Each individual is composed of randomly chosen pixel colors on a colored background. This choice was preferred over a completely noisy image since images often have a dominant color. This strategy could help in identifying it a priori without waiting for it to emerge from noise.  
 
 Regarding the **image format**, we decided to work with square images for simplicity. Each individual is a 3D array of size $n \times n$, where each cell holds a color divided into three RGB channels.
-
+<div style="text-align: center;">
+    <img src="repo_utils/initial_population.png" alt="Alt text">
+</div>
 ---
 
 ### **4. Crossover and Mutation**  
@@ -40,11 +42,13 @@ To enhance diversity, we implemented six different recombination methods for the
   - **Multi-Point Crossover:** The parents' genomes are split into multiple sections and randomly combined:  
     - **Horizontal:** The images are split into horizontal bands, randomly selected, and combined.  
     - **Vertical:** The images are split into vertical bands, randomly selected, and combined.  
-  - **Blending Crossover:** The parents' genomes are combined using a weighted sum based on a random coefficient $\alpha \in [0, 1]$:  
+  - **Blending Crossover:** The parents' genomes are combined using a weighted sum based on a random coefficient $\alpha \in [0, 1]$. The images are then blended using a random opacity parameter $\alpha$:  
 
 $$G = \alpha G_A + (1 - \alpha) G_B$$
 
-    The images are blended using a random opacity parameter.  
+<div style="text-align: center;">
+    <img src="repo_utils/crossover.png" alt="Alt text">
+</div>
 
 - **Mutation:** After each crossover, to maintain diversity and avoid premature convergence, offspring genomes undergo random mutations. A mutation consists of a random change in a pixel's color. The number of mutations is controlled by a **mutation rate** hyperparameter, which exponentially decreases over time:  
 
@@ -63,11 +67,15 @@ MSE is bounded in the range $$[0, 65025]$$. However, color differences in terms 
 - $c_2$ vs $c_3$: Normalized MSE = 0.05  
 - $c_1$ vs $c_3$: Normalized MSE = 0.10  
 
+<div style="text-align: center;">
+    <img src="repo_utils/colors.png" alt="Alt text">
+</div>
+
 Since MSE may lead to suboptimal solutions, we also considered the [Delta_E metric](http://zschuessler.github.io/DeltaE/learn/), which evaluates color differences in the CIE-LAB color space. Here, $L$ represents perceptual lightness, while $a$ and $b$ represent red-green and blue-yellow color axes. The metric computes the Euclidean distance in this space:  
 
 $$\Delta E_{ab} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}$$
 
-This metric is bounded in $[0, 100]$, where values in $[0, 10]$ indicate perceptible differences, and the maximum indicates opposite colors. Delta_E values capture color differences more effectively:  
+This metric is bounded in $[0, 100]$, where values in $[0, 10]$ indicate barely perceptible differences, and the maximum indicates opposite colors. Delta_E values capture color differences more effectively:  
 
 - $c_1$ vs $c_2$: Normalized $\Delta E_{ab} = 0.47$  
 - $c_2$ vs $c_3$: Normalized $\Delta E_{ab} = 0.57$  
