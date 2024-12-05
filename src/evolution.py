@@ -97,7 +97,7 @@ def evolve(image_path : str = None,
         best_offspring = [new_offspring[i] for i in indices]
         best_of_fitnesses = [offspring_fitnesses[i] for i in indices]
 
-        worst_indices = np.argsort(fitnesses_af)[-replacement:]
+        worst_indices = np.argsort(fitnesses)[-replacement:]
 
         for i, idx in enumerate(worst_indices):
             population[idx] = best_offspring[i]
