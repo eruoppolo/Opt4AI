@@ -105,7 +105,7 @@ def evolve(image_path : str = None,
         
 
         # Check for improvement
-        if len(fitness_scores)>5 and (best_fitness < fitness_scores[-5] or best_fitness > fitness_scores[-1]): ############## look at this
+        if len(fitness_scores)>5 and best_fitness < fitness_scores[-5]:
             no_improvement_count = 0  # Reset stagnation counter
             mutation_rate = update_mutation_rate(min_mutation_rate, rate = max_mutation_rate, decay=0.005, generation=generation)
         else:
