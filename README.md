@@ -2,7 +2,7 @@
 ## Exam Project - Fall 2024 - Emanuele Ruoppolo  
 ---
 ## Repository structure
-
+```
 📂 ex1/
 │ 
 ├── 📂 Notebooks/ # runs for each of the cases
@@ -42,7 +42,7 @@
 ├── 📂 targets/ # target images for the generation
 │   
 └── 📰 README.md
-
+```
 ---
 
 ### Image Generation Using Genetic Algorithms  
