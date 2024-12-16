@@ -1,5 +1,49 @@
 # Optimization For Artificial Intelligence - UniTS  
 ## Exam Project - Fall 2024 - Emanuele Ruoppolo  
+---
+## Repository structure
+
+📂 ex1/
+│ 
+├── 📂 Notebooks/ # runs for each of the cases
+│   ├── ⏳ run_32.ipynb
+│   ├── ⏳ run_64.ipynb
+│   ├── ⏳ run_128.ipynb
+│   └── ⏳ run_180.ipynb
+│
+├── 📂 src/
+│   ├── ⚙️ evolution.py # file to run the GA
+│   ├── ⚙️ fitness.py
+│   ├── ⚙️ generation.py
+│   ├── ⚙️ operators.py
+│   └── ⚙️ utilities.py
+│
+├── 📂 evolution_32/ # results of the (32x32) generation
+│   ├── 📂 images_32 # output images
+│   ├── 📋 best_ind.npy # numpy array of the best generated individual
+│   ├── 📊 data_size_32.csv # log data
+│   ├── 📊 fitness_evolution_32.png # fitness vs iterations plot
+│   └── 📊 output.gif # visualization of the image evolution
+│
+├── 📂 evolution_64/ # results of the (64x64) generation
+│   └── ... # as before
+│
+├── 📂 evolution_128_dE/ # results of the (128x128) generation using ∆E fitness
+│   └── ... # as before
+│
+├── 📂 evolution_128_mse/ # results of the (128x128) generation using mse fitness
+│   └── ... # as before
+│
+├── 📂 evolution_180/ # results of the (180x180) generation
+│   └── ... # as before
+│
+├── 📂 slides/ # material and slides for the presentation
+│
+├── 📂 targets/ # target images for the generation
+│   
+└── 📰 README.md
+
+---
 
 ### Image Generation Using Genetic Algorithms  
 
