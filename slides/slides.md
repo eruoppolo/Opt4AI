@@ -261,7 +261,7 @@ min_mutation_rate = 0.0005, stagnation_limit = 30, exit_limit=200, n = 128, fit 
 
 ---
 
-## 180x180 image
+## 180x180px image
 
 ```python
 pop_size = 100, generations = 40000, mutation_rate = 0.5,
