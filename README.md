@@ -3,7 +3,7 @@
 ---
 ## Repository structure
 ```
-📂 ex1/
+📂 Opt4AI/
 │ 
 ├── 📂 Notebooks/ # runs for each of the cases
 │   ├── ⏳ run_32.ipynb
