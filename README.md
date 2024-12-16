@@ -27,7 +27,7 @@ To generate an initial **random population** of individuals (images), we opted f
 
 Regarding the **image format**, we decided to work with square images for simplicity. Each individual is a 3D array of size $n \times n$, where each cell holds a color divided into three RGB channels.
 <div style="text-align: center;">
-    <img src="repo_utils/initial_population.png" alt="Alt text">
+    <img src="slides/im/initial_population.png" alt="Alt text">
 </div>
 ---
 
@@ -47,7 +47,7 @@ To enhance diversity, we implemented six different recombination methods for the
 $$G = \alpha G_A + (1 - \alpha) G_B$$
 
 <div style="text-align: center;">
-    <img src="repo_utils/crossover.png" alt="Alt text">
+    <img src="slides/im/crossover.png" alt="Alt text">
 </div>
 
 - **Mutation:** After each crossover, to maintain diversity and avoid premature convergence, offspring genomes undergo random mutations. A mutation consists of a random change in a pixel's color. The number of mutations is controlled by a **mutation rate** hyperparameter, which exponentially decreases over time:  
@@ -68,7 +68,7 @@ MSE is bounded in the range $$[0, 65025]$$. However, color differences in terms 
 - $c_1$ vs $c_3$: Normalized MSE = 0.10  
 
 <div style="text-align: center;">
-    <img src="repo_utils/colors.png" alt="Alt text">
+    <img src="slides/im/colors.png" alt="Alt text">
 </div>
 
 Since MSE may lead to suboptimal solutions, we also considered the [Delta_E metric](http://zschuessler.github.io/DeltaE/learn/), which evaluates color differences in the CIE-LAB color space. Here, $L$ represents perceptual lightness, while $a$ and $b$ represent red-green and blue-yellow color axes. The metric computes the Euclidean distance in this space:  
