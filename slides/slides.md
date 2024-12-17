@@ -84,6 +84,13 @@ _Università degli Studi di Trieste - a.y. 2024-2025_
 ---
 
 
+## Pipeline
+
+![width:1000px](im/pipeline.png)
+
+---
+
+
 # Individuals: RGB images
 
 $(h\times w \times3)$ tensor of 8-bit-integers
@@ -171,14 +178,20 @@ $$  ^*\text{Blend}(I_A,I_B)= \alpha I_A+(1-\alpha)I_B,   \quad \alpha=\text{rd}(
 $$\text{mutation rate}(t) = \text{mutation rate}(0) \cdot \exp(-\beta \cdot t)$$
 - Anti-stagnation strategy and termination criterion
 ```python
-          if no_improvement_count >= stagnation_limit:
-            mutation_rate = min(mutation_rate * 1.2, max_mutation_rate)
-            no_improvement_count = 0  # Reset stagnation counter
-            stagnation_count += 1
+if len(fitness_scores)>5 and best_fitness < fitness_scores[-5]:
+  no_improvement_count = 0  # Reset stagnation counter
+  mutation_rate = update_mutation_rate(min_mutation_rate, rate = max_mutation_rate, decay=0.005, generation=generation)
+else:
+  no_improvement_count += 1
 
-          if (generation+1) >= 5000 and stagnation_count >= exit_limit:
-            print(f"Stagnation limit reached. Exiting evolution loop.")
-            break
+if no_improvement_count >= stagnation_limit:
+  mutation_rate = min(mutation_rate * 1.2, max_mutation_rate)
+  no_improvement_count = 0  # Reset stagnation counter
+  stagnation_count += 1
+
+if (generation+1) >= 5000 and stagnation_count >= exit_limit:
+  print(f"Stagnation limit reached. Exiting evolution loop.")
+  break
 ```
 ---
 ## Selection
@@ -211,7 +224,9 @@ worst_indices = np.argsort(fitnesses)[-replacement:]
   - **minimum** and **maximum mutation rate**
   - **stagnation limit**: limit of iterations without improvements before increasing **mr**
   - **exit limit**: limit of iterations without improvements before prematurely end the process
+
 ---
+
 # Results ($MSE$)
 
 ---
@@ -275,6 +290,58 @@ min_mutation_rate = 0.0005, stagnation_limit = 60, exit_limit=1000, n = 180, fit
 ![width:1200px](im/output_180.gif)
 
 ---
+
+# Results ($\Delta E_{ab}$)
+
+---
+
+- Results using $\Delta E$ fitness function are not good as expected
+- Convergence is slower and inefficient
+- Visual results are worse than using $MSE$, the solution seems not to be the optimal one
+
+---
+
+## 128x128px image
+
+```python
+pop_size = 100, generations = 20000, mutation_rate = 0.5,
+max_mutation_rate = 0.5, tournament_size = 8, replacement = 20, 
+min_mutation_rate = 0.0005, stagnation_limit = 30, exit_limit=200, n = 128, fit = 'deltaE')
+```
+![width:600px](im/fitness_evolution_128_de.png)
+
+---
+
+![width:1200px](im/output_de.gif)
+
+---
+## Possible causes
+
+- Slower convergence possibly due to the conversion from RGB space to CIE-Lab space 
+```python
+from skimage.color import rgb2lab
+    # Delta E
+if type == "deltaE":
+  ind = rgb2lab(individual / 255) # normalisation in [0,1] and conversion
+  tar = rgb2lab(target / 255)
+  delta_e = np.sqrt(np.sum(np.square(tar - ind), axis=-1))
+  fit = np.mean(delta_e)
+```
+- Possible numeric comparison evaluation difficulties due to the smaller range $[0,100]$
+
+- Possible wrong implementation of the fitness function
+
+---
+
+## Conclusions and futher improvements
+
+- MSE showed nice results even though it could not be an optimal fitness for the problem
+- Results up to (128x128)px are satisfactory with affordable computation times ($\sim50$ minutes) otherwise more efficient strategies would be needed
+- The impact of the crossover techniques could be studied to possibly optimise and lighten up the evolution process by allowing only some of them
+- Futher tests using $\Delta E$ fitness improving its implementation
+
+---
+
 
 # THANKS FOR THE ATTENTION
 
